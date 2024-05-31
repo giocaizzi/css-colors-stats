@@ -1,12 +1,15 @@
 [tool.poetry]
 name = "css-colors-stats"
-version = "0.1.0"
+version = "0.0.1"
 description = ""
 authors = ["Giorgio Caizzi <giorgio.caizzi@jakala.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
+
+[tool.poetry.scripts]
+css-colors-stats = 'css_colors_stats.core:main'
 
 
 [build-system]
