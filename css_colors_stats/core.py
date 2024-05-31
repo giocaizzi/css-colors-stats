@@ -9,6 +9,7 @@ Example:
         $ python -m css_colors_stats.core test.css
 """
 
+from pathlib import Path
 import argparse
 import json
 from typing import Dict, List, Union
@@ -108,33 +109,34 @@ def main(html: bool = True) -> None:
     # Parse the arguments
     args = parser.parse_args()
 
+    # FilePath
+    file_path = Path(args.FilePath)
+
     # Read CSS file
-    with open(args.FilePath, "r", encoding="utf-8") as file:
+    with open(file_path, "r", encoding="utf-8") as file:
         css_content = file.read()
 
     # Parse CSS content for colors
     color_counts = parse_css_for_colors(css_content)
 
     if html:
-        _build_html(color_counts)
+        _build_html(color_counts, file_path)
 
     # Save color counts to a json file
-    with open("color_counts.json", "w") as file:
+    with open(Path(file_path.parent, file_path.stem + "_csscs.json"), "w") as file:
         json.dump(color_counts, file, indent=4)
 
-    # # Print color counts
-    # for color_type in color_counts:
-    #     for color, count in color_counts[color_type].items():
-    #         print(f"{color_type}: {color} - {count}")
 
-
-def _build_html(matches: Dict[str, Dict[str, int]]) -> None:
+def _build_html(
+    matches: Dict[str, Dict[str, int]], file_path: Union[str, Path]
+) -> None:
     """Build an HTML file with the colors.
 
     Builds an HTML file with the colors and their counts.
 
     Args:
         matches (Dict[str, Dict[str, int]]): The color counts.
+        file_path (Union[str, Path]): path to css file
     """
 
     # Start the HTML file
@@ -150,7 +152,7 @@ def _build_html(matches: Dict[str, Dict[str, int]]) -> None:
     html += "</body></html>"
 
     # Write the HTML file
-    with open("colors.html", "w") as file:
+    with open(Path(file_path.parent, file_path.stem + "_csscs.html"), "w") as file:
         file.write(html)
 
 
