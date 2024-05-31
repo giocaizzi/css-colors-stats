@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "css-colors-stats"
 version = "0.0.1"
-description = ""
+description = "Quickly extract and count colors from CSS files."
 authors = ["Giorgio Caizzi <giorgio.caizzi@jakala.com>"]
 readme = "README.md"
 
@@ -11,6 +11,11 @@ python = "^3.11"
 [tool.poetry.scripts]
 css-colors-stats = 'css_colors_stats.core:main'
 
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.4.2"
+flake8 = "^7.0.0"
+flake8-rst-docstrings = "^0.3.0"
 
 [build-system]
 requires = ["poetry-core"]
