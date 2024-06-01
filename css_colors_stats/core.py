@@ -14,7 +14,7 @@ def main() -> None:
 
     Parses a CSS file for colors and saves the color counts to a json file.
     """
-    parser = argparse.ArgumentParser(description="Process a CSS file.")
+    parser = argparse.ArgumentParser(description="Quickly extract and count colors from CSS files.")
     # Add the arguments
     parser.add_argument(
         "FilePath", metavar="filepath", type=str, help="the path to the CSS file"

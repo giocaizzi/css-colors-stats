@@ -16,16 +16,20 @@ def build_html(matches: Dict[str, Dict[str, int]], file_path: Union[str, Path]) 
     """
 
     # Start the HTML file
-    html = "<html><body>"
+    html = """<html><head><title>CSS Colors Stats</title></head><body>
+    <h1>CSS Colors Stats</h1>
+    <p>Counts of color occurences in CSS files.</p>
+    <div class="colors" style="display:flex;flex-direction:column;">
+    """
 
     for color_type in matches:
-        html += f"<h1>{color_type}</h1>"
+        html += f"<h2>{color_type}</h2>"
         # Add a div for each color
-        for color in matches[color_type]:
-            html += f'<div style="background-color:{color};width:100px;height:100px;">{color}:{matches[color_type][color]}</div>'  # noqa
+        for item in matches[color_type]:
+            html += f'<div style="background-color:{item["color"]};width:100px;height:100px;">{item["color"]}:{item["count"]}</div>'  # noqa
 
     # End the HTML file
-    html += "</body></html>"
+    html += "</div></body></html>"
 
     # Write the HTML file
     with open(Path(file_path.parent, file_path.stem + "_csscs.html"), "w") as file:
