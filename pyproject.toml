@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "css-colors-stats"
-version = "0.0.2"
+version = "0.0.3"
 description = "Quickly extract and count colors from CSS files."
 authors = ["Giorgio Caizzi <giorgio.caizzi@jakala.com>"]
 readme = "README.md"
