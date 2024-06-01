@@ -1,12 +1,4 @@
 """Core module for the css_colors_stats package.
-
-This module contains the core functions for the css_colors_stats package.
-
-Example:
-    Parse a CSS file for colors and save the color counts to a json file
-    and an HTML file.
-
-        $ python -m css_colors_stats.core test.css
 """
 
 from pathlib import Path
@@ -18,10 +10,10 @@ from collections import Counter
 
 SEARCH_PATTERNS = {
     "hex": r"#(?:[0-9a-fA-F]{3}){1,2}\b",
-    # "rgb": r"rgb\(\s*(\d+),\s*(\d+),\s*(\d+)\s*\)",
-    # "rgba": r"rgba\(\s*(\d+),\s*(\d+),\s*(\d+),\s*(\d*\.?\d+)\s*\)",
-    # "hsl": r"hsl\(\s*(\d+),\s*(\d+)%,\s*(\d+)%\s*\)",
-    # "hsla": r"hsla\(\s*(\d+),\s*(\d+)%,\s*(\d+)%\s*,\s*(\d*\.?\d+)\s*\)",
+    "rgb": r"rgb\(\s*(\d+),\s*(\d+),\s*(\d+)\s*\)",
+    "rgba": r"rgba\(\s*(\d+),\s*(\d+),\s*(\d+),\s*(\d*\.?\d+)\s*\)",
+    "hsl": r"hsl\(\s*(\d+),\s*(\d+)%,\s*(\d+)%\s*\)",
+    "hsla": r"hsla\(\s*(\d+),\s*(\d+)%,\s*(\d+)%\s*,\s*(\d*\.?\d+)\s*\)",
 }
 
 
@@ -61,7 +53,7 @@ def parse_css_for_colors(
     """
 
     if color_format is None:
-        color_format = ["hex"]
+        color_format = ["hex", "rgb", "rgba", "hsl", "hsla"]
     elif isinstance(color_format, str) and color_format in SEARCH_PATTERNS:
         color_format = [color_format]
     elif isinstance(color_format, list):
@@ -101,7 +93,7 @@ def main(html: bool = True) -> None:
         Parse a CSS file for colors and save the color counts to a json file.
         Save an HTML file with the colors.
 
-            $ python -m css_colors_stats.core test.css
+            $ css-colors-stats test.css
     """
     parser = argparse.ArgumentParser(description="Process a CSS file.")
     # Add the arguments
@@ -122,6 +114,7 @@ def main(html: bool = True) -> None:
     # Parse CSS content for colors
     color_counts = parse_css_for_colors(css_content)
 
+    # Save colors to HTML file
     if html:
         _build_html(color_counts, file_path)
 
@@ -157,7 +150,3 @@ def _build_html(
     # Write the HTML file
     with open(Path(file_path.parent, file_path.stem + "_csscs.html"), "w") as file:
         file.write(html)
-
-
-if __name__ == "__main__":
-    main()

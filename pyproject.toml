@@ -9,7 +9,7 @@ readme = "README.md"
 python = "^3.11"
 
 [tool.poetry.scripts]
-css-colors-stats = 'css_colors_stats.core:main'
+css-colors-stats = 'css_colors_stats:main'
 
 
 [tool.poetry.group.dev.dependencies]
