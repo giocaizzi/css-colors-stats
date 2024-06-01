@@ -65,7 +65,10 @@ def parse_css_for_colors(
     elif isinstance(color_format, str) and color_format in SEARCH_PATTERNS:
         color_format = [color_format]
     elif isinstance(color_format, list):
-        pass
+        if any([color for color in color_format if color not in SEARCH_PATTERNS]):
+            raise ValueError("Invalid color format in the list.")
+        else:
+            pass
     else:
         raise ValueError("Invalid color format.")
 
