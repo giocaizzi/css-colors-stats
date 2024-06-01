@@ -11,6 +11,10 @@ Example:
     Parse a CSS file and save HTML file.
 
         $ css-colors-stats test.css --html
+
+    Get help.
+
+        $ css-colors-stats --help
 """
 
 from .core import main
