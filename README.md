@@ -1,6 +1,6 @@
 # css-colors-stats
 
-Get colors stats from a css file.
+Quickly extract and count colors from CSS files.
 
 Available color formats:
 - `hex`
