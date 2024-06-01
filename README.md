@@ -1,6 +1,12 @@
 # css-colors-stats
 
+[![Deployment](https://github.com/giocaizzi/css-colors-stats/actions/workflows/deployment.yml/badge.svg)](https://github.com/giocaizzi/css-colors-stats/actions/workflows/deployment.yml)
+
 Quickly **extract and count colors from CSS files** using a *python CLI tool*.
+
+Export result to:
+- `json`
+- `html`
 
 Available color formats:
 - `hex`
