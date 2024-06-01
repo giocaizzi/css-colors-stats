@@ -30,7 +30,7 @@ def test_parse_single_color_type(string: str, color_type: str):
     assert isinstance(result, dict)
     # that has only the corresponding color_type dict
     assert len(result) == 1
-    assert any([isinstance(result[x], dict) for x in result])
+    assert any([isinstance(result[x], list) for x in result])
 
 
 def test_parse_multiple_color_types():

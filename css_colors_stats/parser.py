@@ -17,7 +17,7 @@ SEARCH_PATTERNS = {
 def parse_css_for_colors(
     css_content: str,
     color_format: Union[None, str, List[str]] = None,
-) -> Dict[str, Dict[str, int]]:
+) -> Dict[str, List[Dict[str, Union[str, int]]]]:
     """Parse a CSS file for colors.
 
     Parses a CSS file for colors and returns the counts of each color.
@@ -35,7 +35,7 @@ def parse_css_for_colors(
             to search for. Defaults to None.
 
     Returns:
-        Dict[str, Dict[str, int]]: Dictionary with
+        Dict[str, List[Dict[str, Union[str, int]]]]: Dictionary with
             the color counts for each color format.
 
     Raises:
@@ -68,11 +68,19 @@ def parse_css_for_colors(
     for color_type in color_format:
         found = re.findall(SEARCH_PATTERNS[color_type], css_content)
         if len(found) > 0:
-            matches[color_type] = Counter(found)
+            matches[color_type] = []
+            [
+                matches[color_type].append({"color": color, "count": count, "id": i})
+                for i, (color, count) in enumerate(Counter(found).items())
+            ]
 
     # Sort each dictionary by decreasing values
+    matches = sort_colors(matches)
+    return matches
+
+
+def sort_colors(matches: Dict) -> Dict:
+    """sort list of matches by count"""
     for color_type in matches:
-        matches[color_type] = dict(
-            sorted(matches[color_type].items(), key=lambda item: item[1], reverse=True)
-        )
+        matches[color_type] = sorted(matches[color_type], key=lambda x: x["count"])
     return matches

@@ -9,32 +9,24 @@ from css_colors_stats.html import build_html
 from css_colors_stats.parser import parse_css_for_colors
 
 
-def main(html: bool = True) -> None:
+def main() -> None:
     """Main function for the CLI.
 
     Parses a CSS file for colors and saves the color counts to a json file.
-
-    Args:
-        html (bool, optional): If True, an HTML file with the colors will be created.
-            Defaults to True.
-
-    Example:
-        Parse a CSS file for colors and save the color counts to a json file.
-        Save an HTML file with the colors.
-
-            $ css-colors-stats test.css
     """
     parser = argparse.ArgumentParser(description="Process a CSS file.")
     # Add the arguments
     parser.add_argument(
         "FilePath", metavar="filepath", type=str, help="the path to the CSS file"
     )
-
+    parser.add_argument(
+        "--html",
+        action="store_true",  # if present true else false
+        help="generate an HTML file with the color counts",
+    )
     # Parse the arguments
     args = parser.parse_args()
-
-    # FilePath
-    file_path = Path(args.FilePath)
+    file_path = Path(args.FilePath)  # FilePath
 
     # Read CSS file
     with open(file_path, "r", encoding="utf-8") as file:
@@ -44,7 +36,7 @@ def main(html: bool = True) -> None:
     color_counts = parse_css_for_colors(css_content)
 
     # Save colors to HTML file
-    if html:
+    if args.html:
         build_html(color_counts, file_path)
 
     # Save color counts to a json file

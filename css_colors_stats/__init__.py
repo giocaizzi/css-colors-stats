@@ -2,11 +2,16 @@
 
 Quickly extract and count colors from CSS files.
 
+
 Example:
-    Parse a CSS file for colors and save the color counts to a json file
-    and an HTML file.
+    Parse a CSS file for colors and save the color counts to a json file.
 
         $ css-colors-stats test.css
+
+    Parse a CSS file and save HTML file.
+
+        $ css-colors-stats test.css --html
+    
 """
 
 from .core import main
