@@ -3,7 +3,7 @@
 import re
 from typing import Union
 from collections import Counter
-from typing import Dict, List
+from typing import Dict, List, Literal
 
 SEARCH_PATTERNS = {
     "hex": r"#(?:[0-9a-fA-F]{3}){1,2}\b",
@@ -79,8 +79,18 @@ def parse_css_for_colors(
     return matches
 
 
-def sort_colors(matches: Dict) -> Dict:
-    """sort list of matches by count"""
+def sort_colors(matches: Dict, order: Literal["asc", "desc"] = "desc") -> Dict:
+    """sort list of matches by count
+
+    Args:
+        matches (Dict): dictionary with color matches
+        order (Literal["asc","desc"]): order of sorting. Defaults to "desc".
+
+    Returns:
+        Dict: sorted dictionary of matches
+    """
     for color_type in matches:
-        matches[color_type] = sorted(matches[color_type], key=lambda x: x["count"])
+        matches[color_type] = sorted(
+            matches[color_type], key=lambda x: x["count"], reverse=order == "desc"
+        )
     return matches

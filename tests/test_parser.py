@@ -10,6 +10,21 @@ def test_parse_invalid_color_format(color_format):
 
 HEX = "body { background-color: #fff; color: #000; }"
 RGB = "body { background-color: rgb(190,190,190); color: rgb(190,190,190); }"
+HEXXX = """
+body {
+    background-color: #fff;
+    color: #000;
+}
+
+main {
+    background-color: #fff;
+    color: #101010;
+}
+
+a {
+    background-color: #101010;
+}
+"""
 HEX_RGB = "body { background-color: #fff; color: rgb(190,190,190); }"
 
 
@@ -41,3 +56,14 @@ def test_parse_multiple_color_types():
     """
     result = parse_css_for_colors(HEX_RGB)
     assert len(result) == 2
+
+
+def test_parse_result_sorting():
+    """test that the result is sorted by descending count"""
+    result = parse_css_for_colors(HEXXX)
+    for color_type in result:
+        check_order = [
+            result[color_type][i]["count"] >= result[color_type][i + 1]["count"]
+            for i in range(len(result[color_type]) - 1)
+        ]
+        assert all(check_order)
