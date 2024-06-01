@@ -6,7 +6,7 @@ authors = ["Giorgio Caizzi <giorgio.caizzi@jakala.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 
 [tool.poetry.scripts]
 css-colors-stats = 'css_colors_stats:main'
